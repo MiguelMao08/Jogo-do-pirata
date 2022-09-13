@@ -4,15 +4,17 @@ const Bodies = Matter.Bodies;
 
 var mecanismoFisica, world;
 var solo, torre;
-var fundoImg, torreImg;
-
+var fundoImg, torreImg, bolaImg;
+var Bola;
 var Canhao;
 var baseImg,topoImg;
+var angulo;
 function preload(){
   fundoImg = loadImage("imagens/background.gif");
   torreImg = loadImage("imagens/tower.png");
-  baseImg = loadImage("imagens/cannonBase.png")
-  topoImg = loadImage("imagens/cannon.png")
+  baseImg = loadImage("imagens/cannonBase.png");
+  topoImg = loadImage("imagens/cannon.png");
+  bolaImg = loadImage("imagens/cannonball.png");
 }
 
 
@@ -23,6 +25,10 @@ function setup() {
   mecanismoFisica = Engine.create();
   //mundo
   world = mecanismoFisica.world;
+
+  //configuração do ângulo
+  angleMode(DEGREES);
+  angulo = 20;
   //opções do solo
   var opçoes = {
     isStatic: true, //solo fica parado
@@ -41,7 +47,10 @@ function setup() {
   imageMode(CENTER);
 
   //criar o canhao
-  Canhao = new canhao(160,125,160,50,20);
+  Canhao = new canhao(160,125,160,50,angulo);
+
+  //criar a bola
+  Bola = new bolaCanhao(Canhao.x,Canhao.y);
 }
 
 function draw() 
@@ -60,7 +69,13 @@ function draw()
   //desenhar a torre
   image(torreImg,torre.position.x,torre.position.y,160,310);
 
-  Canhao.mostrar()  
+  //mostrar a bola
+  Bola.mostrar();
+  
+  //mostrar o canhão
+  Canhao.mostrar();
+
+  
 
 
 

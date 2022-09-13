@@ -8,11 +8,19 @@ class canhao{
 
     }
     mostrar(){
-        noFill()
-        image(topoImg,this.x,this.y,this.largura,this.altura)
-       image(baseImg,165,140,245,150)
+        noFill();
+        if(keyIsDown(UP_ARROW)){
+            this.angulo -= 1;
+        }
+        if(keyIsDown(DOWN_ARROW)){
+            this.angulo += 1;
+        }
+        push();
+        translate(this.x,this.y);
+        rotate(this.angulo);
+        image(topoImg,0,0,this.largura,this.altura);
+        pop();
+        image(baseImg,165,140,245,150);
     }
-    atirar(){
-        
-    }
+   
 }
