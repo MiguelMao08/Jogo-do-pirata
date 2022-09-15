@@ -9,10 +9,10 @@ class canhao{
     }
     mostrar(){
         noFill();
-        if(keyIsDown(UP_ARROW)){
+        if(keyIsDown(UP_ARROW)&&this.angulo>-50){
             this.angulo -= 1;
         }
-        if(keyIsDown(DOWN_ARROW)){
+        if(keyIsDown(DOWN_ARROW)&&this.angulo<30){
             this.angulo += 1;
         }
         push();

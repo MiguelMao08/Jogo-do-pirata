@@ -47,10 +47,10 @@ function setup() {
   imageMode(CENTER);
 
   //criar o canhao
-  Canhao = new canhao(160,125,160,50,angulo);
+  Canhao = new canhao(160,135,210,75,angulo);
 
   //criar a bola
-  Bola = new bolaCanhao(Canhao.x,Canhao.y);
+  Bola = new bolaCanhao(Canhao.x,Canhao.y+5);
 }
 
 function draw() 
@@ -81,5 +81,11 @@ function draw()
 
   
   
+}
+
+function keyReleased(){
+  if(keyCode==RIGHT_ARROW){
+  Bola.atirar();
+  }
 }
 
