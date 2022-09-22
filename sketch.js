@@ -52,16 +52,7 @@ function setup() {
   //criar o canhao
   Canhao = new canhao(160,135,210,75,angulo);
 
-  //matrizes
-  var m1 = [1,2,3,4,5,6,7];
-  //i =     0 1 2 3 4 5 6
-  var m2 = [1, "Miguel", true, 'A', 345];
-  // i =    0      1      2     4    5
-  var m3 = [[1,2],[3,4],[5,6]];
-  //         0 1   0 1   0 1
-  //          0     1     2
-
-  //console.log(m3[2][0]);
+ 
 }
 
 function draw() 
@@ -88,6 +79,8 @@ function draw()
   //mostrar o canhão
   Canhao.mostrar();
 
+  //mostrar barcos
+  mostrarBarcos()
  
 
 }
@@ -116,20 +109,20 @@ function mostrarBolas(bola,i){
 function mostrarBarcos(){
   if(Barcos.length > 0){ //comprimento ou tamanho da matriz => não tem barco na matriz
     if(Barcos[Barcos.length-1] === undefined 
-      || Barcos[Barcos.length-1].body.position.x < width-200){
-        var posicoes = [-40, -60, -70, -20];
+      || Barcos[Barcos.length-1].body.position.x < width-300){
+        var posicoes = [-110, -190, -70, -50];
         var posicao = random(posicoes);
         Barco = new barcos(width-80,height-60,170,170,posicao);
         Barcos.push(Barco);
       }
       for(var i=0; i<Barcos.length; i++){
         if(Barcos[i]){
-      Matter.Body.setVelocity(this.body, {
+      Matter.Body.setVelocity(Barcos[i].body, {
         x: -2,
         y: 0,
       });
        //mostrar o barco
-        Barco.mostrar();
+        Barcos[i].mostrar();
       }
     }
   }else{
