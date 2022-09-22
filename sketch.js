@@ -9,6 +9,7 @@ var Bola, Bolas = [];
 var Canhao;
 var baseImg,topoImg;
 var angulo;
+var Barco, Barcos = [];
 
 
 function preload(){
@@ -87,6 +88,8 @@ function draw()
   //mostrar o canhão
   Canhao.mostrar();
 
+ 
+
 }
 
 function keyReleased(){
@@ -110,3 +113,28 @@ function mostrarBolas(bola,i){
   }
 }
 
+function mostrarBarcos(){
+  if(Barcos.length > 0){ //comprimento ou tamanho da matriz => não tem barco na matriz
+    if(Barcos[Barcos.length-1] === undefined 
+      || Barcos[Barcos.length-1].body.position.x < width-200){
+        var posicoes = [-40, -60, -70, -20];
+        var posicao = random(posicoes);
+        Barco = new barcos(width-80,height-60,170,170,posicao);
+        Barcos.push(Barco);
+      }
+      for(var i=0; i<Barcos.length; i++){
+        if(Barcos[i]){
+      Matter.Body.setVelocity(this.body, {
+        x: -2,
+        y: 0,
+      });
+       //mostrar o barco
+        Barco.mostrar();
+      }
+    }
+  }else{
+     //criar o primeiro barco
+  Barco = new barcos(width-80,height-60,170,170,-80);
+  Barcos.push(Barco);
+  }
+}
