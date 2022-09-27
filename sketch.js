@@ -73,7 +73,10 @@ function draw()
 
   //mostrar as bolas
   for (var i=0; i<Bolas.length; i++){
+    //mostrar as bolas/balas
     mostrarBolas(Bolas[i],i);
+    //detectar a colisao com cada bola
+    colisaoBalaBarco(i);
   }
   
   //mostrar o canhão
@@ -110,7 +113,7 @@ function mostrarBarcos(){
   if(Barcos.length > 0){ //comprimento ou tamanho da matriz => não tem barco na matriz
     if(Barcos[Barcos.length-1] === undefined 
       || Barcos[Barcos.length-1].body.position.x < width-300){
-        var posicoes = [-110, -190, -70, -50];
+        var posicoes = [-90, -50, -70, -20];
         var posicao = random(posicoes);
         Barco = new barcos(width-80,height-60,170,170,posicao);
         Barcos.push(Barco);
@@ -129,5 +132,19 @@ function mostrarBarcos(){
      //criar o primeiro barco
   Barco = new barcos(width-80,height-60,170,170,-80);
   Barcos.push(Barco);
+  }
+}
+
+//detecção de colisão
+function colisaoBalaBarco(index){
+  for(var i=0 ; i<Barcos.length;i++){
+    if(Bolas[index] !== undefined && Barcos[i] !== undefined){
+      var collision = Matter.SAT.collides(Bolas[index].body,Barcos[i].body);
+
+      if(collision.collided){
+        Matter.World.remove(world,Bolas[index].body); //remove do mundo
+        delete Bolas[index]; //remove da matriz
+      }
+    }
   }
 }

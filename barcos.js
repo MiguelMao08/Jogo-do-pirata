@@ -5,12 +5,15 @@ class barcos{
         this.image = loadImage("./imagens/boat.png");
         this.width = width;
         this.height = height;
+        this.posY = posY;
 
     }
     //métodos ou funções
     mostrar(){
-        image(this.image,this.body.position.x, this.body.position.y,this.width, this.height);
-
+        push();
+        translate(this.body.position.x,this.body.position.y);
+        image(this.image,0,this.posY,this.width, this.height);
+        pop();
        
     }
 }
