@@ -144,6 +144,9 @@ function colisaoBalaBarco(index){
       if(collision.collided){
         Matter.World.remove(world,Bolas[index].body); //remove do mundo
         delete Bolas[index]; //remove da matriz
+
+       Barcos[i].remover(i);
+       
       }
     }
   }

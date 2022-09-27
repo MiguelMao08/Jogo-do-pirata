@@ -16,4 +16,10 @@ class barcos{
         pop();
        
     }
+    remover(i){
+        setTimeout(()=>{
+            Matter.World.remove(world,Barcos[i].body);
+            delete Barcos[i];
+          },1000)
+    }
 }

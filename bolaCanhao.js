@@ -13,7 +13,7 @@ class bolaCanhao{
         
         image(bolaImg,this.body.position.x,this.body.position.y,this.r, this.r);
         
-        if(this.body.velocity.x>0 && this.body.position.x > 250){
+        if(this.body.velocity.x>0 && this.body.position.x >200){
             //pegar a informação de posição x e y
              
           var posicao = [this.body.position.x,this.body.position.y];
