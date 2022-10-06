@@ -10,6 +10,8 @@ var Canhao;
 var baseImg,topoImg;
 var angulo;
 var Barco, Barcos = [];
+var barcoAnimacao = [];
+var barcoSpritedata, barcoSpritesheet;
 
 
 function preload(){
@@ -18,6 +20,8 @@ function preload(){
   baseImg = loadImage("imagens/cannonBase.png");
   topoImg = loadImage("imagens/cannon.png");
   bolaImg = loadImage("imagens/cannonball.png");
+  barcoSpritedata = loadJSON("imagens/boat/boat.json");
+  barcoSpritesheet = loadImage("imagens/boat/boat.png");
 }
 
 
@@ -52,7 +56,13 @@ function setup() {
   //criar o canhao
   Canhao = new canhao(160,135,210,75,angulo);
 
- 
+  //animação do barco
+  var barcoFrames = barcoSpritedata.frames;
+  for (var i=0; i<barcoFrames.length;i++){
+    var pos = barcoFrames[i].position;
+    var img = barcoSpritesheet.get(pos.x,pos.y,pos.w,pos.h);
+    barcoAnimacao.push(img);
+  }
 }
 
 function draw() 
@@ -83,7 +93,7 @@ function draw()
   Canhao.mostrar();
 
   //mostrar barcos
-  mostrarBarcos()
+  mostrarBarcos();
  
 
 }
@@ -115,7 +125,8 @@ function mostrarBarcos(){
       || Barcos[Barcos.length-1].body.position.x < width-300){
         var posicoes = [-90, -50, -70, -20];
         var posicao = random(posicoes);
-        Barco = new barcos(width-80,height-60,170,170,posicao);
+        //cria os demais barcos, depois do primeiro
+        Barco = new barcos(width-80,height-60,170,170,posicao, barcoAnimacao);
         Barcos.push(Barco);
       }
       for(var i=0; i<Barcos.length; i++){
@@ -126,11 +137,13 @@ function mostrarBarcos(){
       });
        //mostrar o barco
         Barcos[i].mostrar();
+        //mostrar animação
+        Barcos[i].animate();
       }
     }
   }else{
      //criar o primeiro barco
-  Barco = new barcos(width-80,height-60,170,170,-80);
+  Barco = new barcos(width-80,height-60,170,170,-80,barcoAnimacao);
   Barcos.push(Barco);
   }
 }
