@@ -23,10 +23,13 @@ class barcos{
        
     }
     remover(i){
+        this.animacao = barcoQuebrado
+        this.width = 300
+        this.height = 300
         setTimeout(()=>{
             Matter.World.remove(world,Barcos[i].body);
             delete Barcos[i];
-          },1000)
+          },2000)
     }
     //animação
     animate(){

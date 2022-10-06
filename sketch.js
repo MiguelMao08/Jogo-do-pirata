@@ -12,6 +12,8 @@ var angulo;
 var Barco, Barcos = [];
 var barcoAnimacao = [];
 var barcoSpritedata, barcoSpritesheet;
+var barcoQuebrado =[];
+var barcoQuebradoAnimacao;barcoFrames;
 
 
 function preload(){
@@ -22,6 +24,8 @@ function preload(){
   bolaImg = loadImage("imagens/cannonball.png");
   barcoSpritedata = loadJSON("imagens/boat/boat.json");
   barcoSpritesheet = loadImage("imagens/boat/boat.png");
+  barcoQuebradoAnimacao = loadImage("imagens/boat/brokenBoat.png");
+  barcoFrame = loadJSON("imagens/boat/brokenBoat.json");
 }
 
 
@@ -62,6 +66,13 @@ function setup() {
     var pos = barcoFrames[i].position;
     var img = barcoSpritesheet.get(pos.x,pos.y,pos.w,pos.h);
     barcoAnimacao.push(img);
+  }
+
+  var barcoQuebradoFrames = barcoFrame.frames;
+  for (var i=0; i<barcoQuebradoFrames.length;i++){
+    var pos = barcoQuebradoFrames[i].position;
+    var img = barcoQuebradoAnimacao.get(pos.x,pos.y,pos.w,pos.h);
+    barcoQuebrado.push(img);
   }
 }
 
