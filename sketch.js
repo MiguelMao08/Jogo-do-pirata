@@ -14,6 +14,7 @@ var barcoAnimacao = [];
 var barcoSpritedata, barcoSpritesheet;
 var barcoQuebrado =[];
 var barcoQuebradoAnimacao;barcoFrames;
+var somDeFundo, somRisada, somAgua, somCanhao;
 
 
 function preload(){
@@ -26,6 +27,11 @@ function preload(){
   barcoSpritesheet = loadImage("imagens/boat/boat.png");
   barcoQuebradoAnimacao = loadImage("imagens/boat/brokenBoat.png");
   barcoFrame = loadJSON("imagens/boat/brokenBoat.json");
+  somDeFundo = loadSound("imagens/background_music.mp3");
+  somRisada = loadSound("imagens/pirate_laugh.mp3");
+  somAgua = loadSound("imagens/cannon_water.mp3");
+  somCanhao = loadSound("imagens/cannon_explosion.mp3");
+
 }
 
 
@@ -150,6 +156,11 @@ function mostrarBarcos(){
         Barcos[i].mostrar();
         //mostrar animação
         Barcos[i].animate();
+        //colisão com a torre
+        var collision = Matter.SAT.collides(torre,Barcos[i].body);
+        if(collision.collided && !Barcos[i].quebrado){
+          gameOver();
+        }
       }
     }
   }else{
@@ -174,4 +185,19 @@ function colisaoBalaBarco(index){
       }
     }
   }
+}
+
+function gameOver(){
+  swal({
+    title: "Game Over",
+    text: "Obrigado(a) por jogar",
+    imageUrl: "https://raw.githubusercontent.com/whitehatjr/PiratesInvasion/main/assets/boat.png",
+    confirmButtonText: "Jogar Novamente"
+    }, 
+    function(isConfirm){
+      if(isConfirm){
+        location.reload();
+      }
+    }
+  );
 }

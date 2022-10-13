@@ -8,6 +8,7 @@ class barcos{
         this.posY = posY;
         this.animacao = barcoAnimacao;
         this.speed = 0.05; //começa em um valor (inicialização)
+        this.quebrou = false;
     }
     //métodos ou funções
     mostrar(){
@@ -23,9 +24,10 @@ class barcos{
        
     }
     remover(i){
-        this.animacao = barcoQuebrado
-        this.width = 300
-        this.height = 300
+        this.animacao = barcoQuebrado;
+        this.width = 300;
+        this.height = 300;
+        this.quebrou = true;
         setTimeout(()=>{
             Matter.World.remove(world,Barcos[i].body);
             delete Barcos[i];
