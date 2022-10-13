@@ -15,6 +15,7 @@ var barcoSpritedata, barcoSpritesheet;
 var barcoQuebrado =[];
 var barcoQuebradoAnimacao;barcoFrames;
 var somDeFundo, somRisada, somAgua, somCanhao;
+var pontos = 0;
 
 
 function preload(){
@@ -80,12 +81,21 @@ function setup() {
     var img = barcoQuebradoAnimacao.get(pos.x,pos.y,pos.w,pos.h);
     barcoQuebrado.push(img);
   }
+  //som de fundo
+ // somDeFundo.play()
+  //somDeFundo.setVolume(0.5)
 }
 
 function draw() 
 {
   //imagem de fundo
   image(fundoImg,width/2,height/2,1200,600);
+
+  //som de fundo
+  if(!somDeFundo.isPlaying()){
+    somDeFundo.play()
+    somDeFundo.setVolume(0.5)
+  }
 
   //background("lightgray");
 
@@ -112,12 +122,16 @@ function draw()
   //mostrar barcos
   mostrarBarcos();
  
+  textSize(15);
+  fill("red");
+  text("pontuaçao: " + pontos,1000,50);
 
 }
 
 function keyReleased(){
   if(keyCode == RIGHT_ARROW){
   Bolas[Bolas.length-1].atirar();
+  somCanhao.play();
   }
 }
 
@@ -133,6 +147,12 @@ function mostrarBolas(bola,i){
   if(bola){
      //mostrar a bola
     bola.mostrar();
+    if(bola.body.position.y == 550){
+    Bola.afundou = true;
+  if(Bola.afundou){
+    somAgua.play();
+    somAgua.setVolume(0.4);
+  }}
   }
 }
 
@@ -160,6 +180,10 @@ function mostrarBarcos(){
         var collision = Matter.SAT.collides(torre,Barcos[i].body);
         if(collision.collided && !Barcos[i].quebrado){
           gameOver();
+          if(!somRisada.isPlaying()){
+          somRisada.play();
+          somRisada.setVolume(0.3);
+          }
         }
       }
     }
@@ -179,7 +203,7 @@ function colisaoBalaBarco(index){
       if(collision.collided){
         Matter.World.remove(world,Bolas[index].body); //remove do mundo
         delete Bolas[index]; //remove da matriz
-
+       pontos+=5;
        Barcos[i].remover(i);
        
       }

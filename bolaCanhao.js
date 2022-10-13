@@ -7,6 +7,7 @@ class bolaCanhao{
         this.body = Bodies.circle(x,y,this.r,options);
         World.add(world,this.body);
         this.trajetoria = []; //matriz m3=[[x1,y1],[x2,y2],[x3,y3],...];
+        this.afundou = false;
     }
 
     mostrar(){
