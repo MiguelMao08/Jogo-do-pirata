@@ -31,7 +31,7 @@ class barcos{
         setTimeout(()=>{
             Matter.World.remove(world,Barcos[i].body);
             delete Barcos[i];
-          },2000)
+          },1000)
     }
     //animação
     animate(){

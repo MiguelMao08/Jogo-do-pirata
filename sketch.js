@@ -12,10 +12,12 @@ var angulo;
 var Barco, Barcos = [];
 var barcoAnimacao = [];
 var barcoSpritedata, barcoSpritesheet;
-var barcoQuebrado =[];
-var barcoQuebradoAnimacao;barcoFrames;
+var barcoQuebrado = [];
+var barcoQuebradoAnimacao, barcoFrames;
 var somDeFundo, somRisada, somAgua, somCanhao;
 var pontos = 0;
+var bolaSpritedata, bolaSpritesheet;
+var bolaNaAgua = [];
 
 
 function preload(){
@@ -23,7 +25,6 @@ function preload(){
   torreImg = loadImage("imagens/tower.png");
   baseImg = loadImage("imagens/cannonBase.png");
   topoImg = loadImage("imagens/cannon.png");
-  bolaImg = loadImage("imagens/cannonball.png");
   barcoSpritedata = loadJSON("imagens/boat/boat.json");
   barcoSpritesheet = loadImage("imagens/boat/boat.png");
   barcoQuebradoAnimacao = loadImage("imagens/boat/brokenBoat.png");
@@ -32,6 +33,8 @@ function preload(){
   somRisada = loadSound("imagens/pirate_laugh.mp3");
   somAgua = loadSound("imagens/cannon_water.mp3");
   somCanhao = loadSound("imagens/cannon_explosion.mp3");
+  bolaSpritedata = loadJSON("imagens/waterSplash/waterSplash.json");
+  bolaSpritesheet = loadImage("imagens/waterSplash/waterSplash.png");
 
 }
 
@@ -80,6 +83,14 @@ function setup() {
     var pos = barcoQuebradoFrames[i].position;
     var img = barcoQuebradoAnimacao.get(pos.x,pos.y,pos.w,pos.h);
     barcoQuebrado.push(img);
+  }
+
+  //animaçao da agua
+  var bolaFrames = bolaSpritedata.frames;
+  for (var i=0; i<bolaFrames.length;i++){
+  var posi = bolaFrames[i].position;
+  var img = bolaSpritesheet.get(posi.x,posi.y,posi.w,posi.h);
+  bolaNaAgua.push(img)
   }
   //som de fundo
  // somDeFundo.play()
@@ -147,9 +158,11 @@ function mostrarBolas(bola,i){
   if(bola){
      //mostrar a bola
     bola.mostrar();
-    if(bola.body.position.y == 550){
+    bola.animate();
+    if(bola.body.position.y >= 550){
     Bola.afundou = true;
   if(Bola.afundou){
+    bola.bolaAfundou();
     somAgua.play();
     somAgua.setVolume(0.4);
   }}
